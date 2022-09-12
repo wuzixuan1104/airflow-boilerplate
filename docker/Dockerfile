@@ -3,7 +3,7 @@
 FROM puckel/docker-airflow:1.10.8
 USER root
 
-ENV SPARK_HOME /usr/local/lib/python3.7/site-packages/pyspark
+ENV SPARK_HOME /usr/local/lib/python3.8/site-packages/pyspark
 ENV PATH $PATH:$SPARK_HOME/bin
 ENV PYTHONPATH $PYTHONPATH:$AIRFLOW_HOME/dags
 
@@ -21,6 +21,7 @@ COPY docker/entrypoint.sh /entrypoint.sh
 RUN rm $AIRFLOW_HOME/airflow.cfg
 
 COPY requirements-airflow.txt requirements.txt
+RUN pip3 install --upgrade pip
 RUN pip3 install -r requirements.txt
 
 RUN ln -s /spark-conf $SPARK_HOME/conf
